@@ -8,6 +8,7 @@ class ModelsTests(TestCase):
     def test_driver_str(self) -> None:
         test_driver = get_user_model().objects.create_user(
             username="test.user",
+            email="test@test.com",
             first_name="TestFirst",
             last_name="TestLast",
             password="testpassword123",
