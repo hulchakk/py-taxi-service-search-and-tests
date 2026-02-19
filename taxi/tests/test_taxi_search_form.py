@@ -15,7 +15,7 @@ class SearchFormsTests(TestCase):
         )
         self.client.force_login(self.admin_user)
 
-    def test_driver_name_search_form(self) -> None:
+    def test_driver_username_search_form(self) -> None:
         for i in range(10):
             get_user_model().objects.create_user(
                 username=f"test.{i}",
@@ -25,13 +25,13 @@ class SearchFormsTests(TestCase):
                 password="testpassword123",
 
             )
-        url = "%s?driver_name=TestName2" % reverse("taxi:driver-list")
+        url = "%s?driver_username=test.5" % reverse("taxi:driver-list")
         response = self.client.get(url)
         self.assertEqual(
             list(response.context["driver_list"]),
             list(
                 get_user_model(
-                ).objects.filter(first_name__istartswith="TestName2")
+                ).objects.filter(username__istartswith="test.5")
             )
         )
 

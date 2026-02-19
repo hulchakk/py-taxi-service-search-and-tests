@@ -52,14 +52,14 @@ def validate_license_number(
     return license_number
 
 
-class DriverNameSearchForm(forms.Form):
-    driver_name = forms.CharField(
+class DriverUsernameSearchForm(forms.Form):
+    driver_username = forms.CharField(
         max_length=255,
         required=False,
         label="",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Search driver by name"
+                "placeholder": "Search driver by username"
             }
         )
     )

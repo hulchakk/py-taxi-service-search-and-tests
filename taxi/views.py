@@ -13,7 +13,7 @@ from .forms import (
     DriverCreationForm,
     DriverLicenseUpdateForm,
     CarForm,
-    DriverNameSearchForm,
+    DriverUsernameSearchForm,
     ManufacturerNameSearchForm,
 )
 
@@ -134,20 +134,20 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        driver_name = self.request.GET.get("driver_name", "")
-        context["search_form"] = DriverNameSearchForm(
+        driver_username = self.request.GET.get("driver_username", "")
+        context["search_form"] = DriverUsernameSearchForm(
             initial={
-                "driver_name": driver_name
+                "driver_username": driver_username
             }
         )
         return context
 
     def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
-        driver_name = self.request.GET.get("driver_name")
-        if driver_name:
+        driver_username = self.request.GET.get("driver_username")
+        if driver_username:
             queryset = queryset.filter(
-                first_name__istartswith=driver_name
+                username__istartswith=driver_username
             )
         return queryset
 
